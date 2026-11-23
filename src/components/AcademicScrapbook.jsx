@@ -75,8 +75,16 @@ const timelineChapters = [
             {
                 id: 'utem-1',
                 src: '/images/education/utem-1.jpg',
-                title: 'Uni Life in Melaka',
+                title: 'Anegerah Dekan',
                 note: 'FTMK software development journey in Melaka.',
+                tapeColor: 'rgba(0, 161, 156, 0.42)',
+                tilt: '-1deg',
+            },
+            {
+                id: 'utem-2',
+                src: '/images/education/utem-2.jpg',
+                title: 'Journey in Melaka',
+                note: 'Taekwondo Team in Melaka.',
                 tapeColor: 'rgba(0, 161, 156, 0.42)',
                 tilt: '-1deg',
             },
