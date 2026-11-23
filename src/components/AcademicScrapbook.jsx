@@ -15,7 +15,7 @@ const timelineChapters = [
         stage: 'Secondary',
         school: 'MADRASAH AL-HIKMAH (MADAH)',
         place: 'Perak',
-        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli BADAR sebagai excomedia dan atlet badminton.',
+        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli Badan Dakwah dan Rohani,BADAR sebagai exco multimedia dan atlet badminton.',
         accent: '#2563EB',
         photos: [
             {
