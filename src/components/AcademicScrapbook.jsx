@@ -15,13 +15,13 @@ const timelineChapters = [
         stage: 'Secondary',
         school: 'MADRASAH AL-HIKMAH (MADAH)',
         place: 'Perak',
-        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership.',
+        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli BADAR sebagai excomedia dan atlet badminton.',
         accent: '#2563EB',
         photos: [
             {
                 id: 'madah-1',
                 src: '/images/education/madah-1.jpg',
-                title: 'MADAH — Frame 01',
+                title: 'MADAH — Juara Rekacipta Peringkat Kebangsaan SEMI ABIM 2018',
                 note: 'Secondary school days in Perak.',
                 tapeColor: 'rgba(37, 99, 235, 0.36)',
                 tilt: '-1.5deg',
@@ -29,7 +29,7 @@ const timelineChapters = [
             {
                 id: 'madah-2',
                 src: '/images/education/madah-2.jpg',
-                title: 'MADAH — Frame 02',
+                title: 'MADAH — Graduation Day',
                 note: 'School & community moments at MADAH.',
                 tapeColor: 'rgba(0, 161, 156, 0.36)',
                 tilt: '1.4deg',
@@ -69,7 +69,7 @@ const timelineChapters = [
         stage: 'Degree • Current',
         school: 'UNIVERSITI TEKNIKAL MALAYSIA MELAKA (UTeM)',
         place: 'Melaka',
-        desc: 'Software development at FTMK, UTeM in Melaka—building web systems, Android apps, and structured software.',
+        desc: 'Software development at FTMK, UTeM in Melaka—building web systems, Android apps, and structured software. Also one of the taekwondo athletes representing UTeM in varsity combat sport 2025 and sukipt 7 2026.',
         accent: '#00D2BE',
         photos: [
             {
