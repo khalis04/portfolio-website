@@ -15,13 +15,13 @@ const timelineChapters = [
         stage: 'Secondary',
         school: 'MADRASAH AL-HIKMAH (MADAH)',
         place: 'Perak',
-        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli Badan Dakwah dan Rohani,BADAR sebagai exco multimedia dan atlet badminton.',
+        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli Badan Dakwah dan Rohani,BADAR sebagai exco multimedia dan atlet badminton sekolah.',
         accent: '#2563EB',
         photos: [
             {
                 id: 'madah-1',
                 src: '/images/education/madah-1.jpg',
-                title: 'MADAH — Juara Rekacipta Peringkat Kebangsaan SEMI ABIM 2018',
+                title: 'Juara Rekacipta Peringkat Kebangsaan SEMI ABIM 2018',
                 note: 'Secondary school days in Perak.',
                 tapeColor: 'rgba(37, 99, 235, 0.36)',
                 tilt: '-1.5deg',
@@ -29,7 +29,7 @@ const timelineChapters = [
             {
                 id: 'madah-2',
                 src: '/images/education/madah-2.jpg',
-                title: 'MADAH — Graduation Day',
+                title: 'Graduation Day',
                 note: 'School & community moments at MADAH.',
                 tapeColor: 'rgba(0, 161, 156, 0.36)',
                 tilt: '1.4deg',
@@ -48,7 +48,7 @@ const timelineChapters = [
             {
                 id: 'matric-1',
                 src: '/images/education/matric-1.jpg',
-                title: 'Matriculation — Frame 01',
+                title: 'Became a Moderator and conducted Islamic Forum.',
                 note: 'Pre-university campus life in Perak.',
                 tapeColor: 'rgba(0, 161, 156, 0.38)',
                 tilt: '-1.2deg',
@@ -56,7 +56,7 @@ const timelineChapters = [
             {
                 id: 'matric-2',
                 src: '/images/education/matric-2.jpg',
-                title: 'Matriculation — Frame 02',
+                title: 'Last year in KMPK.',
                 note: 'Study sessions & pre-U milestones.',
                 tapeColor: 'rgba(15, 23, 42, 0.24)',
                 tilt: '1.6deg',
@@ -75,7 +75,7 @@ const timelineChapters = [
             {
                 id: 'utem-1',
                 src: '/images/education/utem-1.jpg',
-                title: 'UTeM — Campus Frame',
+                title: 'Uni Life in Melaka',
                 note: 'FTMK software development journey in Melaka.',
                 tapeColor: 'rgba(0, 161, 156, 0.42)',
                 tilt: '-1deg',
