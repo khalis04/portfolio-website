@@ -15,7 +15,7 @@ const timelineChapters = [
         stage: 'Secondary',
         school: 'MADRASAH AL-HIKMAH (MADAH)',
         place: 'Perak',
-        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli Badan Dakwah dan Rohani,BADAR sebagai exco multimedia dan atlet badminton sekolah.',
+        desc: 'Secondary school years in Perak—building core study habits, discipline, and early leadership. Pernah juga dilantik sebagai ahli Badan Dakwah dan Rohani,BADAR sebagai exco multimedia dan atlet badminton sekolah. Exam: IDADI, PT3, SPM.',
         accent: '#2563EB',
         photos: [
             {
@@ -42,7 +42,7 @@ const timelineChapters = [
         stage: 'Pre-University',
         school: 'PERAK MATRICULATION COLLEGE (KMPK)',
         place: 'Perak',
-        desc: 'Pre-university bridge in Perak—strengthening analytical thinking across computing, math, and sciences.',
+        desc: 'Pre-university bridge in Perak—strengthening analytical thinking across computing, math, and sciences. Sijil Matrikulasi Malaysia (SMM) in Science Computer Course.',
         accent: '#00A19C',
         photos: [
             {
