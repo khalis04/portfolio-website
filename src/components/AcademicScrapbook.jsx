@@ -75,7 +75,7 @@ const timelineChapters = [
             {
                 id: 'utem-1',
                 src: '/images/education/utem-1.jpg',
-                title: 'Anegerah Dekan',
+                title: 'Anugerah Dekan FTMK',
                 note: 'FTMK software development journey in Melaka.',
                 tapeColor: 'rgba(0, 161, 156, 0.42)',
                 tilt: '-1deg',
