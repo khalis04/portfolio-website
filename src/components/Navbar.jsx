@@ -10,6 +10,7 @@ import {
     MapPin,
     ExternalLink,
 } from 'lucide-react';
+import Breadcrumb from './Breadcrumb';
 
 const navItems = [
     { name: 'Overview', path: '/' },
@@ -27,9 +28,29 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [showCvModal, setShowCvModal] = useState(false);
     const [checkingCv, setCheckingCv] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
     const { pathname } = useLocation();
 
-    useEffect(() => setIsOpen(false), [pathname]);
+    useEffect(() => {
+        setIsOpen(false);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, [pathname]);
+
+    useEffect(() => {
+        const onScroll = () => {
+            const y = window.scrollY;
+            setScrolled(y > 12);
+
+            const docHeight =
+                document.documentElement.scrollHeight - window.innerHeight;
+            setScrollProgress(docHeight > 0 ? Math.min(100, (y / docHeight) * 100) : 0);
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [pathname]);
 
     useEffect(() => {
         if (!isOpen && !showCvModal) return;
@@ -73,113 +94,138 @@ export default function Navbar() {
     };
 
     const linkClass = ({ isActive }) =>
-        `relative px-3.5 py-1.5 rounded-lg font-sans text-sm font-medium transition-all ${isActive
+        `relative px-3.5 py-1.5 rounded-lg font-sans text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-petronas-bright ${isActive
             ? 'bg-petronas/15 text-petronas-bright font-semibold border border-petronas/40'
             : 'text-snow/80 hover:text-snow hover:bg-snow/5'
         }`;
 
     return (
         <>
-            <header className="sticky top-0 z-50 bg-carbon/60 backdrop-blur-xl border-b border-snow/10">
-                <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-                    {/* Clean Modern Brand Header */}
-                    <NavLink
-                        to="/"
-                        className="flex items-center gap-3"
-                        aria-label="Khalis Fikri, home"
-                    >
-                        <span className="grid place-items-center h-9 w-9 bg-petronas/90 text-ink font-sans font-extrabold text-sm rounded-lg shadow-xs">
-                            KF
-                        </span>
-                        <span className="font-sans font-bold text-snow text-base tracking-tight leading-tight">
-                            Khalis Fikri
-                            <span className="hidden sm:block font-mono text-[11px] font-medium text-petronas-bright mt-0.5">
-                                FTMK • UTeM
-                            </span>
-                        </span>
-                    </NavLink>
-
-                    {/* Desktop nav */}
-                    <nav
-                        className="hidden lg:flex items-center gap-1"
-                        aria-label="Main navigation"
-                    >
-                        {navItems.map((item) => (
-                            <NavLink
-                                key={item.path}
-                                to={item.path}
-                                end={item.path === '/'}
-                                className={linkClass}
-                            >
-                                {item.name}
-                            </NavLink>
-                        ))}
-                    </nav>
-
-                    {/* Desktop Download CV Button */}
-                    <a
-                        href={CV_URL}
-                        download={CV_DOWNLOAD_NAME}
-                        onClick={handleCvClick}
-                        className="hidden lg:inline-flex items-center gap-1.5 font-sans text-xs font-semibold px-4 py-2 bg-silver/90 text-ink rounded-lg border border-petronas hover:bg-petronas transition-colors cursor-pointer"
-                    >
-                        <span>{checkingCv ? 'Preparing...' : 'Download CV'}</span>
-                        <ArrowUpRight size={14} />
-                    </a>
-
-                    {/* Mobile button */}
-                    <button
-                        type="button"
-                        onClick={() => setIsOpen((v) => !v)}
-                        className="lg:hidden p-2 text-snow hover:text-petronas-bright cursor-pointer"
-                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                        aria-expanded={isOpen}
-                        aria-controls="mobile-nav"
-                    >
-                        {isOpen ? <X size={22} /> : <Menu size={22} />}
-                    </button>
+            <div
+                className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${scrolled ? 'shadow-[0_12px_32px_-12px_rgba(0,0,0,0.85)]' : ''
+                    }`}
+            >
+                {/* Scroll Progress Bar (Feedback) */}
+                <div
+                    aria-hidden="true"
+                    className="h-[2px] w-full bg-carbon"
+                >
+                    <div
+                        className="h-full bg-petronas-bright transition-[width] duration-150 ease-out"
+                        style={{ width: `${scrollProgress}%` }}
+                    />
                 </div>
 
-                {/* Subtle 1px Petronas gradient hairline */}
-                <div
-                    className="h-[1px] w-full bg-gradient-to-r from-transparent via-petronas/60 to-transparent"
-                    aria-hidden="true"
-                />
+                <header
+                    className={`backdrop-blur-xl border-b border-snow/10 transition-colors duration-300 ${scrolled ? 'bg-carbon/90' : 'bg-carbon/70'
+                        }`}
+                >
+                    <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+                        {/* Brand Header */}
+                        <NavLink
+                            to="/"
+                            className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-petronas-bright rounded-lg"
+                            aria-label="Khalis Fikri, home"
+                        >
+                            <span className="grid place-items-center h-9 w-9 bg-petronas/90 text-ink font-sans font-extrabold text-sm rounded-lg shadow-xs">
+                                KF
+                            </span>
+                            <span className="font-sans font-bold text-snow text-base tracking-tight leading-tight">
+                                Khalis Fikri
+                                <span className="hidden sm:block font-mono text-[11px] font-medium text-petronas-bright mt-0.5">
+                                    FTMK • UTeM
+                                </span>
+                            </span>
+                        </NavLink>
 
-                {/* Mobile drawer (Frosted Glass) */}
-                {isOpen && (
-                    <nav
-                        id="mobile-nav"
-                        aria-label="Main navigation"
-                        className="lg:hidden border-b border-petronas/40 bg-carbon/85 backdrop-blur-xl px-6 py-4 space-y-1"
-                    >
-                        {navItems.map((item) => (
-                            <NavLink
-                                key={item.path}
-                                to={item.path}
-                                end={item.path === '/'}
-                                className={({ isActive }) =>
-                                    `block px-3 py-2.5 rounded-lg font-sans text-sm font-medium ${isActive
-                                        ? 'bg-petronas/20 text-petronas-bright font-semibold border border-petronas/40'
-                                        : 'text-snow/85 hover:text-petronas-bright'
-                                    }`
-                                }
-                            >
-                                {item.name}
-                            </NavLink>
-                        ))}
+                        {/* Desktop nav */}
+                        <nav
+                            className="hidden lg:flex items-center gap-1"
+                            aria-label="Main navigation"
+                        >
+                            {navItems.map((item) => (
+                                <NavLink
+                                    key={item.path}
+                                    to={item.path}
+                                    end={item.path === '/'}
+                                    className={linkClass}
+                                >
+                                    {item.name}
+                                </NavLink>
+                            ))}
+                        </nav>
+
+                        {/* Desktop Download CV Button */}
                         <a
                             href={CV_URL}
                             download={CV_DOWNLOAD_NAME}
                             onClick={handleCvClick}
-                            className="btn-primary w-full mt-3 inline-flex items-center justify-center gap-1.5 cursor-pointer"
+                            className="hidden lg:inline-flex items-center gap-1.5 font-sans text-xs font-semibold px-4 py-2 bg-silver/90 text-ink rounded-lg border border-petronas hover:bg-petronas transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-petronas-bright"
                         >
                             <span>{checkingCv ? 'Preparing...' : 'Download CV'}</span>
                             <ArrowUpRight size={14} />
                         </a>
-                    </nav>
-                )}
-            </header>
+
+                        {/* Mobile menu button */}
+                        <button
+                            type="button"
+                            onClick={() => setIsOpen((v) => !v)}
+                            className="lg:hidden p-2 text-snow hover:text-petronas-bright cursor-pointer"
+                            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                            aria-expanded={isOpen}
+                            aria-controls="mobile-nav"
+                        >
+                            {isOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
+                    </div>
+
+                    {/* Subtle 1px Petronas gradient hairline */}
+                    <div
+                        className="h-[1px] w-full bg-gradient-to-r from-transparent via-petronas/60 to-transparent"
+                        aria-hidden="true"
+                    />
+
+                    {/* Mobile drawer */}
+                    {isOpen && (
+                        <nav
+                            id="mobile-nav"
+                            aria-label="Main navigation"
+                            className="lg:hidden border-b border-petronas/40 bg-carbon/95 backdrop-blur-xl px-6 py-4 space-y-1"
+                        >
+                            {navItems.map((item) => (
+                                <NavLink
+                                    key={item.path}
+                                    to={item.path}
+                                    end={item.path === '/'}
+                                    className={({ isActive }) =>
+                                        `block px-3 py-2.5 rounded-lg font-sans text-sm font-medium ${isActive
+                                            ? 'bg-petronas/20 text-petronas-bright font-semibold border border-petronas/40'
+                                            : 'text-snow/85 hover:text-petronas-bright'
+                                        }`
+                                    }
+                                >
+                                    {item.name}
+                                </NavLink>
+                            ))}
+                            <a
+                                href={CV_URL}
+                                download={CV_DOWNLOAD_NAME}
+                                onClick={handleCvClick}
+                                className="btn-primary w-full mt-3 inline-flex items-center justify-center gap-1.5 cursor-pointer"
+                            >
+                                <span>{checkingCv ? 'Preparing...' : 'Download CV'}</span>
+                                <ArrowUpRight size={14} />
+                            </a>
+                        </nav>
+                    )}
+                </header>
+
+                {/* Clickable Breadcrumb Trail */}
+                <Breadcrumb />
+            </div>
+
+            {/* Automatic Spacer so Fixed Header + Breadcrumb Never Overlap Page Content */}
+            <div className="h-[103px]" aria-hidden="true" />
 
             {/* ================================================================
           BUILT-IN CV MODAL (FALLBACK WHEN /public/resume.pdf IS NOT ADDED YET)
@@ -193,7 +239,6 @@ export default function Navbar() {
                         className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#FAFBFD] text-[#080B0F] border-2 border-[#080B0F] shadow-2xl"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Top Action Bar */}
                         <div className="sticky top-0 z-10 bg-[#080B0F] text-snow px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-snow/15">
                             <div className="font-mono text-xs text-petronas-bright font-bold">
                                 CURRICULUM VITAE • MUHAMMAD KHALIS FIKRI
@@ -220,9 +265,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        {/* CV Sheet Content */}
                         <div className="p-6 sm:p-9 space-y-6">
-                            {/* Header */}
                             <div className="pb-5 border-b-2 border-[#080B0F] space-y-2">
                                 <h2 className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#080B0F]">
                                     MUHAMMAD KHALIS FIKRI BIN MUHAMMAD FAUZI
@@ -251,7 +294,7 @@ export default function Navbar() {
                                         LinkedIn <ExternalLink size={11} />
                                     </a>
                                     <a
-                                        href="https://github.com/khalisfikri"
+                                        href="https://github.com/khalis04"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-1 hover:underline"
@@ -261,7 +304,6 @@ export default function Navbar() {
                                 </div>
                             </div>
 
-                            {/* Summary */}
                             <div className="space-y-1.5">
                                 <h3 className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#007A76]">
                                     Professional Summary
@@ -271,7 +313,6 @@ export default function Navbar() {
                                 </p>
                             </div>
 
-                            {/* Education */}
                             <div className="space-y-2.5">
                                 <h3 className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#007A76]">
                                     Education
@@ -304,7 +345,6 @@ export default function Navbar() {
                                 </div>
                             </div>
 
-                            {/* Key Projects */}
                             <div className="space-y-2.5">
                                 <h3 className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#007A76]">
                                     Selected Software &amp; Design Projects
@@ -328,7 +368,6 @@ export default function Navbar() {
                                 </ul>
                             </div>
 
-                            {/* Skills */}
                             <div className="space-y-2">
                                 <h3 className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#007A76]">
                                     Technical &amp; Creative Stack
@@ -358,10 +397,13 @@ export default function Navbar() {
                                 </div>
                             </div>
 
-                            {/* Helper Tip */}
                             <div className="rounded-xl bg-[#EEF3F5] border border-[#CBD5E1] p-3.5 flex items-center justify-between gap-3 text-xs text-[#334155]">
                                 <span>
-                                    Tip: Place your exported PDF at <code className="font-mono font-bold text-[#080B0F]">public/resume.pdf</code> to trigger an instant file download on click.
+                                    Tip: Place your exported PDF at{' '}
+                                    <code className="font-mono font-bold text-[#080B0F]">
+                                        public/resume.pdf
+                                    </code>{' '}
+                                    to trigger an instant file download on click.
                                 </span>
                                 <Download size={15} className="text-[#007A76] shrink-0" />
                             </div>
